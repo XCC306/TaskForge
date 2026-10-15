@@ -113,8 +113,8 @@ void workers_execute_concurrently() {
         all_arrived = gate->changed.wait_for(
             lock, std::chrono::seconds(5),
             [gate, expected_count = worker_count] {
-    return gate->arrived == expected_count;
-});
+                return gate->arrived == expected_count;
+            });
     }
     gate->release();
     std::set<std::thread::id> workers;

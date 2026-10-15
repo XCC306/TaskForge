@@ -3,6 +3,14 @@
 #include <stdexcept>
 
 namespace taskforge {
+namespace {
+thread_local const ThreadPool* current_pool = nullptr;
+
+struct WorkerScope {
+    explicit WorkerScope(const ThreadPool* pool) { current_pool = pool; }
+    ~WorkerScope() { current_pool = nullptr; }
+};
+} // namespace
 
 ThreadPool::ThreadPool(std::size_t worker_count) {
     if (worker_count == 0) {
@@ -14,30 +22,75 @@ ThreadPool::ThreadPool(std::size_t worker_count) {
             workers_.emplace_back([this] { worker_loop(); });
         }
     } catch (...) {
-        // If thread creation fails midway, wake and join the threads already made.
-        drain_and_join();
+        wait(); // Wake and join threads already made if construction fails.
         throw;
     }
 }
 
 ThreadPool::~ThreadPool() {
-    drain_and_join();
+    wait(); // Same drain default as v0.2.0. Never detach live tasks.
 }
 
-void ThreadPool::enqueue(std::function<void()> task) {
+bool ThreadPool::is_closed() const {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return closing_;
+}
+
+void ThreadPool::enqueue(QueuedTask task) {
     {
         std::lock_guard<std::mutex> lock(mutex_);
         if (closing_) {
-            throw std::runtime_error("ThreadPool is closing");
+            throw std::runtime_error("ThreadPool is closed");
         }
         tasks_.push(std::move(task));
     }
     ready_.notify_one();
 }
 
+void ThreadPool::close(ShutdownMode mode) {
+    std::queue<QueuedTask> cancelled;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        closing_ = true;
+        if (mode == ShutdownMode::CancelPending) {
+            tasks_.swap(cancelled);
+        }
+    }
+    ready_.notify_all();
+    // No promise publication or destruction of user captures under the pool lock.
+    while (!cancelled.empty()) {
+        cancelled.front().control->cancel_if_queued();
+        cancelled.pop();
+    }
+}
+
+void ThreadPool::reject_worker_wait() const {
+    if (current_pool == this) {
+        throw std::logic_error("A worker cannot wait for its own ThreadPool");
+    }
+}
+
+void ThreadPool::wait() {
+    reject_worker_wait(); // Before join_mutex_: do not deadlock with a joining owner.
+    close();
+    std::lock_guard<std::mutex> lock(join_mutex_);
+    for (auto& worker : workers_) {
+        if (worker.joinable()) {
+            worker.join();
+        }
+    }
+}
+
+void ThreadPool::shutdown(ShutdownMode mode) {
+    reject_worker_wait();
+    close(mode);
+    wait();
+}
+
 void ThreadPool::worker_loop() {
+    WorkerScope scope(this);
     for (;;) {
-        std::function<void()> task;
+        QueuedTask task;
         {
             std::unique_lock<std::mutex> lock(mutex_);
             ready_.wait(lock, [this] { return closing_ || !tasks_.empty(); });
@@ -47,22 +100,7 @@ void ThreadPool::worker_loop() {
             task = std::move(tasks_.front());
             tasks_.pop();
         }
-        // packaged_task catches user exceptions and stores them in the future.
-        task();
-    }
-}
-
-void ThreadPool::drain_and_join() {
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        closing_ = true;
-    }
-    ready_.notify_all();
-    // No queue lock is held while waiting: workers need it to finish the queue.
-    for (auto& worker : workers_) {
-        if (worker.joinable()) {
-            worker.join();
-        }
+        task.execute(); // TaskControl stores values, cancellation, or exceptions.
     }
 }
 

@@ -2,6 +2,7 @@
 #include "taskforge/wav_analyzer.hpp"
 
 #include <charconv>
+#include <chrono>
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
@@ -13,15 +14,18 @@ namespace {
 
 struct Options {
     std::size_t workers = 0; // Zero selects the original serial execution path.
+    unsigned wait_ms = 0; // Zero means no wait limit, preserving v0.2.0 behavior.
     bool help = false;
     bool version = false;
     std::vector<std::filesystem::path> files;
 };
 
 void usage() {
-    std::cout << "TaskForge v0.2.0\n"
-              << "Usage: taskforge [--serial | --threads N] [--] <file.wav> [more.wav ...]\n"
+    std::cout << "TaskForge v0.3.0\n"
+              << "Usage: taskforge [--serial | --threads N] [--wait-ms N] [--] <file.wav> [more.wav ...]\n"
               << "  Default: serial. N must be an integer from 1 to 64.\n"
+              << "  --wait-ms  Per-result wait budget (1..600000 ms); requires --threads.\n"
+              << "             On timeout request cancellation, then join all workers on exit.\n"
               << "  --help     Show this help\n"
               << "  --version  Show the application version\n";
 }
@@ -55,11 +59,25 @@ Options parse(const std::vector<std::filesystem::path>& arguments) {
                 options.workers < 1 || options.workers > 64) {
                 throw std::invalid_argument("Worker count must be an integer from 1 to 64");
             }
+        } else if (parse_options && token == "--wait-ms") {
+            if (options.wait_ms != 0 || index + 1 >= arguments.size()) {
+                throw std::invalid_argument("--wait-ms requires one wait budget, specified once");
+            }
+            const std::string count = arguments[++index].u8string();
+            const auto parsed = std::from_chars(count.data(), count.data() + count.size(),
+                                                options.wait_ms);
+            if (parsed.ec != std::errc{} || parsed.ptr != count.data() + count.size() ||
+                options.wait_ms < 1 || options.wait_ms > 600000) {
+                throw std::invalid_argument("Wait budget must be an integer from 1 to 600000 ms");
+            }
         } else if (parse_options && !token.empty() && token.front() == '-') {
             throw std::invalid_argument("Unknown option: " + token);
         } else {
             options.files.push_back(arguments[index]);
         }
+    }
+    if (options.wait_ms != 0 && options.workers == 0) {
+        throw std::invalid_argument("--wait-ms requires --threads N");
     }
     if (!options.help && !options.version && options.files.empty()) {
         throw std::invalid_argument("Provide at least one WAV file");
@@ -78,7 +96,7 @@ void print_stats(const std::filesystem::path& path, const taskforge::AudioStats&
 int analyze(const Options& options) {
     bool any_failure = false;
     std::cout << std::fixed << std::setprecision(6)
-              << "TaskForge v0.2.0 mode=" << (options.workers == 0 ? "serial" : "parallel")
+              << "TaskForge v0.3.0 mode=" << (options.workers == 0 ? "serial" : "parallel")
               << " workers=" << (options.workers == 0 ? 1 : options.workers)
               << " files=" << options.files.size() << "\n";
 
@@ -93,15 +111,25 @@ int analyze(const Options& options) {
         }
     } else {
         taskforge::ThreadPool pool(options.workers);
-        std::vector<std::future<taskforge::AudioStats>> results;
+        std::vector<taskforge::TaskHandle<taskforge::AudioStats>> results;
         results.reserve(options.files.size());
         for (const auto& file : options.files) {
             // submit owns a copy of file. Do not capture the loop variable by reference.
-            results.push_back(pool.submit(taskforge::analyze_wav, file));
+            results.push_back(pool.submit_cancellable(taskforge::analyze_wav_cancellable, file));
         }
         // Print only from the main thread, preserving input order.
         for (std::size_t index = 0; index < results.size(); ++index) {
             try {
+                if (options.wait_ms != 0 &&
+                    results[index].wait_for(std::chrono::milliseconds(options.wait_ms)) ==
+                        std::future_status::timeout) {
+                    any_failure = true;
+                    const bool requested = results[index].cancel();
+                    std::cerr << options.files[index].u8string()
+                              << ": Wait timed out; cancellation_requested="
+                              << (requested ? "true" : "false") << "\n";
+                    continue;
+                }
                 print_stats(options.files[index], results[index].get());
             } catch (const std::exception& error) {
                 any_failure = true;
@@ -126,7 +154,7 @@ int run(const std::vector<std::filesystem::path>& arguments) {
         return 0;
     }
     if (options.version) {
-        std::cout << "TaskForge v0.2.0\n";
+        std::cout << "TaskForge v0.3.0\n";
         return 0;
     }
     try {

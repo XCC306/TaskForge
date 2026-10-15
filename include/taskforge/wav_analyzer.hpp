@@ -1,5 +1,7 @@
 #pragma once
 
+#include "taskforge/task.hpp"
+
 #include <cstdint>
 #include <filesystem>
 
@@ -19,5 +21,10 @@ struct AudioStats {
 // Accepts RIFF/WAVE with one PCM16 fmt chunk and one data chunk, mono or stereo.
 // Throws std::runtime_error for missing, malformed, oversized or unsupported files.
 AudioStats analyze_wav(const std::filesystem::path& path);
+
+// Checks cancellation before I/O, between 64 KiB reads, during chunk parsing,
+// and every 4096 samples. A single blocking OS I/O call is not interruptible.
+AudioStats analyze_wav_cancellable(CancellationToken token,
+                                   const std::filesystem::path& path);
 
 } // namespace taskforge

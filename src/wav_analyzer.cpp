@@ -37,7 +37,9 @@ bool has_id(const std::vector<unsigned char>& bytes, std::size_t at,
            std::memcmp(bytes.data() + at, id, 4) == 0;
 }
 
-std::vector<unsigned char> load_file(const std::filesystem::path& path) {
+std::vector<unsigned char> load_file(const std::filesystem::path& path,
+                                     CancellationToken token) {
+    token.throw_if_cancelled();
     std::ifstream input(path, std::ios::binary | std::ios::ate);
     if (!input) {
         throw std::runtime_error("Cannot open input file");
@@ -51,17 +53,28 @@ std::vector<unsigned char> load_file(const std::filesystem::path& path) {
     }
     std::vector<unsigned char> bytes(static_cast<std::size_t>(length));
     input.seekg(0, std::ios::beg);
-    if (!bytes.empty() && !input.read(reinterpret_cast<char*>(bytes.data()),
-                                      static_cast<std::streamsize>(bytes.size()))) {
-        throw std::runtime_error("Cannot read input file completely");
+    for (std::size_t offset = 0; offset < bytes.size();) {
+        token.throw_if_cancelled();
+        const auto count = std::min<std::size_t>(64U * 1024U, bytes.size() - offset);
+        if (!input.read(reinterpret_cast<char*>(bytes.data() + offset),
+                        static_cast<std::streamsize>(count))) {
+            throw std::runtime_error("Cannot read input file completely");
+        }
+        offset += count;
     }
+    token.throw_if_cancelled();
     return bytes;
 }
 
 } // namespace
 
 AudioStats analyze_wav(const std::filesystem::path& path) {
-    const auto bytes = load_file(path);
+    return analyze_wav_cancellable(CancellationToken{}, path);
+}
+
+AudioStats analyze_wav_cancellable(CancellationToken token,
+                                   const std::filesystem::path& path) {
+    const auto bytes = load_file(path, token);
     if (bytes.size() < 12 || !has_id(bytes, 0, "RIFF") ||
         !has_id(bytes, 8, "WAVE")) {
         throw std::runtime_error("Expected a RIFF/WAVE file");
@@ -86,6 +99,7 @@ AudioStats analyze_wav(const std::filesystem::path& path) {
 
     std::size_t at = 12;
     while (at < riff_end) {
+        token.throw_if_cancelled();
         if (riff_end - at < 8) {
             throw std::runtime_error("Truncated WAV chunk header");
         }
@@ -146,6 +160,9 @@ AudioStats analyze_wav(const std::filesystem::path& path) {
     stats.duration_seconds = static_cast<double>(stats.frames) / sample_rate;
     const std::uint64_t sample_count = data_size / 2;
     for (std::size_t offset = 0; offset < data_size; offset += 2) {
+        if (offset % 8192U == 0U) {
+            token.throw_if_cancelled();
+        }
         const std::uint16_t raw = read_u16(bytes, data_at + offset);
         const int signed_sample = raw >= 0x8000U
                                       ? static_cast<int>(raw) - 65536
@@ -155,6 +172,7 @@ AudioStats analyze_wav(const std::filesystem::path& path) {
         stats.energy += normalized * normalized;
     }
     stats.rms = std::sqrt(stats.energy / static_cast<double>(sample_count));
+    token.throw_if_cancelled();
     return stats;
 }
 
