@@ -6,3 +6,5 @@
 *.o
 *.exe
 *.pdb
+__pycache__/
+*.py[cod]

@@ -1,0 +1,1779 @@
+{
+  "status": "passed",
+  "started_utc": "2026-10-15T09:50:33.381446+00:00",
+  "tool_schema": 1,
+  "suite": "standard",
+  "warmups": 1,
+  "repeats": 5,
+  "modes": [
+    {
+      "mode": "serial",
+      "workers": 1
+    },
+    {
+      "mode": "parallel",
+      "workers": 1
+    },
+    {
+      "mode": "parallel",
+      "workers": 2
+    },
+    {
+      "mode": "parallel",
+      "workers": 4
+    }
+  ],
+  "scope": "CLI process wall time including startup, thread creation, file I/O, analysis, captured output and exit",
+  "cache_policy": "fixtures just written and hashed; each mode warmed; OS cache not flushed",
+  "accuracy": "independent fixture checks plus exact equivalence at CLI printed precision",
+  "environment": {
+    "os": "Windows-11-10.0.26100-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "logical_cpu_count": 4,
+    "python": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:29:05) [MSC v.1942 64 bit (AMD64)]",
+    "executable": "D:\\Projects\\TaskForge\\build\\Release\\taskforge.exe",
+    "binary_sha256": "af5a40520c5bac865f7e462514029d6f641f16beee51fc3f781ef0094de365d9",
+    "build": {
+      "build_directory": "D:\\Projects\\TaskForge\\build",
+      "configuration": "Release",
+      "CMAKE_GENERATOR": "Visual Studio 18 2026",
+      "compiler_records": [
+        {
+          "metadata_file": "D:\\Projects\\TaskForge\\build\\CMakeFiles\\4.3.1-msvc1\\CMakeCXXCompiler.cmake",
+          "CMAKE_CXX_COMPILER_ID": "MSVC",
+          "CMAKE_CXX_COMPILER_VERSION": "19.51.36260.0"
+        }
+      ]
+    },
+    "core_source_sha256": {
+      "CMakeLists.txt": "8f80267d5f0422cc9a9ce47940a46111b67a1ff0dcb048f84400a4074d7c4cb5",
+      "app/main.cpp": "c2d161a218334bb12f512fb9dd731abddc4992d597af0a5701da0dd5e60d1ae5",
+      "include/taskforge/task.hpp": "04ce346f4aec82f2e18f1c1b1d022d2bec3002e5210826109aacc0557f7d11e0",
+      "include/taskforge/thread_pool.hpp": "ee94f74743d2e546690efaa382a9fc270a3671f0369c771728e97d250c93af87",
+      "include/taskforge/wav_analyzer.hpp": "0fe372439645aa04cb46104f25fae248f2e93cf41138ce8e83e264d2a6a77a89",
+      "src/thread_pool.cpp": "cf456f07a247f4d2e701744852a73edc21a7e80076716f805c4c9b497af0e8e9",
+      "src/wav_analyzer.cpp": "3c8e243932ded53024d9945e7b3669dfd584681cc9ba2599f1a3aff5b9a8cb9c"
+    },
+    "benchmark_script_sha256": "a88703b2ae5239a2dd4959697849e21f1bf6aac7f471af1a2d7a15b86660188d",
+    "clock": {
+      "implementation": "QueryPerformanceCounter()",
+      "resolution_seconds": 1e-07,
+      "monotonic": true
+    },
+    "git_head": {
+      "returncode": 0,
+      "stdout": "06d95c344240a130c28e2e1b378e3183b81c6e9f",
+      "stderr": ""
+    },
+    "git_v030": {
+      "returncode": 0,
+      "stdout": "06d95c344240a130c28e2e1b378e3183b81c6e9f",
+      "stderr": ""
+    },
+    "git_status": {
+      "returncode": 0,
+      "stdout": "?? docs/\n?? scripts/\n?? tests/__pycache__/\n?? tests/test_benchmark_tool.py",
+      "stderr": ""
+    },
+    "windows_hardware": {
+      "cpu": [
+        {
+          "Name": "Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz",
+          "NumberOfCores": 4,
+          "NumberOfLogicalProcessors": 4
+        }
+      ],
+      "ram_bytes": 17044643840
+    }
+  },
+  "cases": [
+    {
+      "name": "tiny",
+      "count": 32,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "frames_per_file": 1600,
+      "duration_seconds_per_file": 0.1,
+      "files": [
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_000.wav",
+          "size_bytes": 3244,
+          "sha256": "534d5551dade258573fddafb534f00becdf185c978f3cd7b4450b9e6bb3d73a9",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.19073486328125,
+            "rms": 0.15807720577311699,
+            "energy": 39.9814447760582
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_001.wav",
+          "size_bytes": 3244,
+          "sha256": "38fa92c4b45c2f7adff66a9fa060e750fa1bd39143ebd4fe0cf03b99a4b2e823",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.193634033203125,
+            "rms": 0.16048313685394203,
+            "energy": 41.20773954316974
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_002.wav",
+          "size_bytes": 3244,
+          "sha256": "7ef4bfeeb2a22976ea71b203d598fe9eb2e17d0617880e0e9018ebedc84b74c4",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.196533203125,
+            "rms": 0.162887398641524,
+            "energy": 42.451687417924404
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_003.wav",
+          "size_bytes": 3244,
+          "sha256": "200dd0e12fb10bf901429f3e8ffbf55b222b3162125c224f3466154ed25382ed",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.199432373046875,
+            "rms": 0.16529430675398898,
+            "energy": 43.715532552450895
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_004.wav",
+          "size_bytes": 3244,
+          "sha256": "5ab5e431e28a93799451600d3dfeafac20e627bcf5579163bf5499ec4bac48bb",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.202362060546875,
+            "rms": 0.1677020603331131,
+            "energy": 44.99836966395378
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_005.wav",
+          "size_bytes": 3244,
+          "sha256": "e83ff7191ce03965e1678faa4467061a64b941b46597ef99f0792816828f8165",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.20526123046875,
+            "rms": 0.17010812482743914,
+            "energy": 46.29883861169219
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_006.wav",
+          "size_bytes": 3244,
+          "sha256": "6ccf22350749defacd0b4506ce72ab9c3970daa2b0200457c20b40ea07f0bb75",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.208160400390625,
+            "rms": 0.17251644812607725,
+            "energy": 47.61907979846001
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_007.wav",
+          "size_bytes": 3244,
+          "sha256": "610d11055dacf5391e1e7696bc625a486cf663fd5459e6f225c60b181176047b",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.2110595703125,
+            "rms": 0.1749201384354776,
+            "energy": 48.95528772845864
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_008.wav",
+          "size_bytes": 3244,
+          "sha256": "549af9f889ec25739bf88b7e3317a2b0327a36dc7b3a0e59ed22226c08d69167",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.213958740234375,
+            "rms": 0.17733001784480687,
+            "energy": 50.31349636614323
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_009.wav",
+          "size_bytes": 3244,
+          "sha256": "0e78fd192d54f0aa371eafe2e87e15a369a18bbbdec1a405791da6d6d57230b1",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.21685791015625,
+            "rms": 0.17973593335754726,
+            "energy": 51.688009183853865
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_010.wav",
+          "size_bytes": 3244,
+          "sha256": "c475114af7c35c27c328768ee479def5950e90e0be9b02bca29af7acbae6621e",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.219757080078125,
+            "rms": 0.1821409745602846,
+            "energy": 53.080535382032394
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_011.wav",
+          "size_bytes": 3244,
+          "sha256": "2847756c6d435711118bcdf9cb604b857c900060e9ecc198c127e46fa0f6bf8b",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.22265625,
+            "rms": 0.18454810007596043,
+            "energy": 54.49280198663473
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_012.wav",
+          "size_bytes": 3244,
+          "sha256": "a2b711ba5b7785d893d234e7e120416d75a3e51c8fa2c5202ce14320f6d48095",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.2255859375,
+            "rms": 0.18695557541507654,
+            "energy": 55.9238194860518
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_013.wav",
+          "size_bytes": 3244,
+          "sha256": "bce4c0dea376bd2880a1fe88bf08e6fa021eb71bb411db073d9a2bd6e016c8b6",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.228485107421875,
+            "rms": 0.18936077065494125,
+            "energy": 57.372002340853214
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_014.wav",
+          "size_bytes": 3244,
+          "sha256": "a4f37c349d4e96c859a1ab7d042deb00705c94f57e3847f07cc1653e97479811",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.23138427734375,
+            "rms": 0.19176522498681384,
+            "energy": 58.838242422789335
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_015.wav",
+          "size_bytes": 3244,
+          "sha256": "1c87f3f0e3ea774d2e4e68c443f9bd0d3d3df84f91926ecba058857a49d74fa8",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.234283447265625,
+            "rms": 0.19417086208441836,
+            "energy": 60.32371789216995
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_016.wav",
+          "size_bytes": 3244,
+          "sha256": "087af7aa04a65daef22be6acc79ab7bf294e94271de60ca429555cc849a8c852",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.2371826171875,
+            "rms": 0.19657906006184622,
+            "energy": 61.82932296767831
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_017.wav",
+          "size_bytes": 3244,
+          "sha256": "d41dd09c8beba88363ce0c3fbc205673e8fc3d69b54e863375ec8d06a1bc661c",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.240081787109375,
+            "rms": 0.19898439629011336,
+            "energy": 63.35166394710541
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_018.wav",
+          "size_bytes": 3244,
+          "sha256": "d73bd2ee51bdd5543650d690e00ed10739b444728f7e277b5a97f0abada229a0",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.24298095703125,
+            "rms": 0.2013908215862703,
+            "energy": 64.89322083070874
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_019.wav",
+          "size_bytes": 3244,
+          "sha256": "8ae1f71a57cb85fe06809bba2c400f0cc667d30e7589ee495d834f5d7f5853c9",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.24591064453125,
+            "rms": 0.20379393194227674,
+            "energy": 66.45114671438932
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_020.wav",
+          "size_bytes": 3244,
+          "sha256": "438af18241d24b4a21be8dd27221acfdf6d0bcebe8a6b16a78155d958e502122",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.248809814453125,
+            "rms": 0.206201696412144,
+            "energy": 68.0306233651936
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_021.wav",
+          "size_bytes": 3244,
+          "sha256": "dd85d5cfc39376c0e336f0bbd11e57454147ab5fa6e2ac5dbbe8b7eb3dc439b2",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.251708984375,
+            "rms": 0.2086079905815594,
+            "energy": 69.62766997516155
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_022.wav",
+          "size_bytes": 3244,
+          "sha256": "30a27af925710c191ecb81331d25e260a2f8ed46d2bc7efec36df0bcb1e1fce2",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.254608154296875,
+            "rms": 0.21101455994528429,
+            "energy": 71.24343121424317
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_023.wav",
+          "size_bytes": 3244,
+          "sha256": "dbc90f9d5d214dacf46475c9e8fa2c2cd09f82e7e2fe532e5612c8bbbc6258ca",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.25750732421875,
+            "rms": 0.21342077630089287,
+            "energy": 72.8774844110012
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_024.wav",
+          "size_bytes": 3244,
+          "sha256": "308417e5a30216bed402a306b3df2c9b4dbf74fe7390921fc7cbf7ef9c49ae6e",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.260406494140625,
+            "rms": 0.21582874202340604,
+            "energy": 74.53127341344953
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_025.wav",
+          "size_bytes": 3244,
+          "sha256": "9741c2a1da4c3fa58484841e467563cfa52e4c74c6670d2524e05726a3e5ae6f",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.2633056640625,
+            "rms": 0.21823415934259854,
+            "energy": 76.20183728635311
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_026.wav",
+          "size_bytes": 3244,
+          "sha256": "9910b9e54a92463adf114cc99a2c8256d6fe5e3242f1f8bc7cb8a521cbbcf7b6",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.2662353515625,
+            "rms": 0.2206411395705404,
+            "energy": 77.89201995357871
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_027.wav",
+          "size_bytes": 3244,
+          "sha256": "86bdbda4e0d1105eda0875d8b2cc43bb5ed20406b1b7c990a30b7ffc293ed91c",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.269134521484375,
+            "rms": 0.22304881143272176,
+            "energy": 79.6012356504798
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_028.wav",
+          "size_bytes": 3244,
+          "sha256": "9dbe76ca5f8796baa9bff563408b843c72f360e154a58ae13d30cfd7190230d0",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.27203369140625,
+            "rms": 0.22545410193448523,
+            "energy": 81.32728332653642
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_029.wav",
+          "size_bytes": 3244,
+          "sha256": "e0d5bb26fd7bd535743d56517d918230f6d5cd2442294786ed103cd306e8ac9f",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.274932861328125,
+            "rms": 0.22786244248905846,
+            "energy": 83.07406831532717
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_030.wav",
+          "size_bytes": 3244,
+          "sha256": "209552fd3e860b2e290aded92fb3b1fad03c848d4f8bad05268b08194db37f7b",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.27783203125,
+            "rms": 0.23026954095114335,
+            "energy": 84.83849838376045
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\tiny\\input_031.wav",
+          "size_bytes": 3244,
+          "sha256": "7bd6fca729bc6b9517a754481bbfbf77410a8fc2052756a896be25598922f244",
+          "expected": {
+            "sample_rate_hz": 16000,
+            "channels": 1,
+            "frames": 1600,
+            "duration_s": 0.1,
+            "peak": 0.280731201171875,
+            "rms": 0.23267374523708678,
+            "energy": 86.61931475624442
+          }
+        }
+      ],
+      "runs": [
+        {
+          "elapsed_ns": 18074500,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 18825400,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 15005700,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 14300700,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 15415900,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13129300,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 11518800,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 10344200,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 16451700,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12024100,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 10617500,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13925300,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13504300,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12355400,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12670300,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12817800,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13727100,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13740000,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 13134400,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12383100,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 15161200,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 12104600,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 11027900,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 11317400,
+          "output_fingerprint": "3996c85ed0c7e1cd1c3d4b611172100fde80116295d359a0ff2f4278f34b9cc0",
+          "case": "tiny",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "medium",
+      "count": 16,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "frames_per_file": 480000,
+      "duration_seconds_per_file": 10.0,
+      "files": [
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_000.wav",
+          "size_bytes": 960044,
+          "sha256": "eea311ea1fef36f5e3326daa40e6aa9f07dd88dd3a3e8eab2cb23248ef554f10",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.19073486328125,
+            "rms": 0.15807619018630778,
+            "energy": 11994.279313832521
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_001.wav",
+          "size_bytes": 960044,
+          "sha256": "15c9496a50de2fb3425fbd0db6faeeea8de54dbe211e06a67258f69c42cc7583",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.193634033203125,
+            "rms": 0.16048370443424373,
+            "energy": 12362.409306690097
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_002.wav",
+          "size_bytes": 960044,
+          "sha256": "e5498f5a2ec55a6e0296123671b22ba401ba159da7d594f1d2d14fa3a172dd19",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.196533203125,
+            "rms": 0.16289022925040655,
+            "energy": 12735.948856920004
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_003.wav",
+          "size_bytes": 960044,
+          "sha256": "ec05499636236b4c4757b2fbf5a5355aa53b6c460823cb44a1c901a39c5c925c",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.199432373046875,
+            "rms": 0.16529640883849814,
+            "energy": 13114.993331953883
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_004.wav",
+          "size_bytes": 960044,
+          "sha256": "2fc1a71b5669d2a8d5d887eb56f441c2803e30e36866e07eb085ab3baf779b85",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.202362060546875,
+            "rms": 0.16770212924197775,
+            "energy": 13499.521993100643
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_005.wav",
+          "size_bytes": 960044,
+          "sha256": "e18c204a28d4d3118f3d15c5b69b13b23a94ec558aabfbdfd24af759ad76ae84",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.20526123046875,
+            "rms": 0.1701093371681662,
+            "energy": 13889.849564060569
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_006.wav",
+          "size_bytes": 960044,
+          "sha256": "8f328e4b9ff299abdb1aa28b50a3dea6f472257f5142ea8434ab31710a59515c",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.208160400390625,
+            "rms": 0.1725167292054936,
+            "energy": 14285.770490765572
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_007.wav",
+          "size_bytes": 960044,
+          "sha256": "8924cb8122b655a25f6ebcfecc20344cf4e3a77824d00eaabbc2be9dedc721b7",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.2110595703125,
+            "rms": 0.1749215119372343,
+            "energy": 14686.816962435842
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_008.wav",
+          "size_bytes": 960044,
+          "sha256": "50714ca32cd20c44a7422332ffa6429ee2cd577a7b0fb2716d8059fbab374fc0",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.213958740234375,
+            "rms": 0.17732867619371126,
+            "energy": 15093.82051229477
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_009.wav",
+          "size_bytes": 960044,
+          "sha256": "dd7c0f1d12d5875dedad3006ba537a0424524e17f8557d391ff088df324ba141",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.21685791015625,
+            "rms": 0.17973529813349243,
+            "energy": 15506.293149664998
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_010.wav",
+          "size_bytes": 960044,
+          "sha256": "48020a1e3e6a1d90edce5e259069f26799b6b0101e76ed1655ad34a772ea0c0a",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.219757080078125,
+            "rms": 0.18214066631950107,
+            "energy": 15924.10671710968
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_011.wav",
+          "size_bytes": 960044,
+          "sha256": "064c1ee3c9e7ddaaf9d27aa01d53f129117e1650301a2031ec5a7bec91db2110",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.22265625,
+            "rms": 0.18454771691980845,
+            "energy": 16347.7727137506
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_012.wav",
+          "size_bytes": 960044,
+          "sha256": "9288e38aa49db75c881242cd9732b0f1c0fe444482475ad5a7d13c2b2432162a",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.2255859375,
+            "rms": 0.18695362547268987,
+            "energy": 16776.79587714374
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_013.wav",
+          "size_bytes": 960044,
+          "sha256": "8202dac86a3988b82ed622d34381ba97019d5e5fcc4a9689ce4067c617564663",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.228485107421875,
+            "rms": 0.18936059681540998,
+            "energy": 17211.569100618362
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_014.wav",
+          "size_bytes": 960044,
+          "sha256": "b5c48106ff4de7933a1aebfb94fab76a8429ccfc44846ffbc97538663ae04854",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.23138427734375,
+            "rms": 0.19176502629200579,
+            "energy": 17651.43614821136
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\medium\\input_015.wav",
+          "size_bytes": 960044,
+          "sha256": "5dbda2c91aa659f216d32c813b70390b26fe248538da5dabbddae92dfc04a6c5",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "frames": 480000,
+            "duration_s": 10.0,
+            "peak": 0.234283447265625,
+            "rms": 0.19417173536836083,
+            "energy": 18097.278151661158
+          }
+        }
+      ],
+      "runs": [
+        {
+          "elapsed_ns": 49599100,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 32481500,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 30234800,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 42537300,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 45918300,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 26895000,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 22180200,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 39532300,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 33799400,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 21067100,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 45585200,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 40143900,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 30812400,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 41163900,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 41721100,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 29576700,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 42740200,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 41111100,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 26608400,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 20576100,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 48649600,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 26561000,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 21009800,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 40513300,
+          "output_fingerprint": "3c68af10e3bd77d1c41e896da74200e1be260eed9fa34a5b03bb1d660b2e9602",
+          "case": "medium",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "large_stereo",
+      "count": 8,
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "frames_per_file": 2880000,
+      "duration_seconds_per_file": 60.0,
+      "files": [
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_000.wav",
+          "size_bytes": 11520044,
+          "sha256": "7c2f8a3948b6f39767bc9a6cb3519fc4cb19aa897ea4c92ede0745ad80f7be58",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.226776123046875,
+            "rms": 0.17364958828065094,
+            "energy": 173688.07397782803
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_001.wav",
+          "size_bytes": 11520044,
+          "sha256": "2342b5088f15b53bfdc9a78f271110c4ea7421f9ee39104544e543e025ef8caa",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.22967529296875,
+            "rms": 0.17604764631990533,
+            "energy": 178518.376942724
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_002.wav",
+          "size_bytes": 11520044,
+          "sha256": "b2e4971f2d4dc5cc9b4ff3632aaefd10ce7071ce31df49c08d27cc49693ebf5b",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.232574462890625,
+            "rms": 0.17844542014605516,
+            "energy": 183414.34351354837
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_003.wav",
+          "size_bytes": 11520044,
+          "sha256": "734c53e596f4350ce9d5e0f1acaee838f7debf30f1aff9bf3d7e1ed4fc591d37",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.2354736328125,
+            "rms": 0.18084357456354105,
+            "energy": 188377.33513489366
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_004.wav",
+          "size_bytes": 11520044,
+          "sha256": "2ab747f40e36db76103277b85a133b274e503c4b10bc5b7713d54dad9e8ce0ff",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.238372802734375,
+            "rms": 0.18324149379053903,
+            "energy": 193406.0834683478
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_005.wav",
+          "size_bytes": 11520044,
+          "sha256": "55d3aa35de8de567d9b75e2fabc6290a25ac9e99598dab9b9ec8e8eaee10a64c",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.24127197265625,
+            "rms": 0.18564004462049757,
+            "energy": 198502.42272019386
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_006.wav",
+          "size_bytes": 11520044,
+          "sha256": "318c4d347a191e3aec0436dcee7eecb5e4de6dfcf9d73de5f72cb8f93938404c",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.244171142578125,
+            "rms": 0.18803921085494396,
+            "energy": 203666.3701571524
+          }
+        },
+        {
+          "path": "D:\\Projects\\TaskForge\\build\\verification\\run-20261015-175033-60fc0fdb\\fixtures\\large_stereo\\input_007.wav",
+          "size_bytes": 11520044,
+          "sha256": "48a23740f04a5f62aadf710f30ff8d7541e7638a5a983e301cc7c7102829ee4b",
+          "expected": {
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "frames": 2880000,
+            "duration_s": 60.0,
+            "peak": 0.247100830078125,
+            "rms": 0.19043715654911014,
+            "energy": 208893.94902437925
+          }
+        }
+      ],
+      "runs": [
+        {
+          "elapsed_ns": 145857100,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 90469800,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 235667000,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 230246500,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "warmup",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 136233500,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 81179500,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 229153600,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 227154900,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 1,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 86655900,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 230563500,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 281279000,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 126498400,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 2,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 230336200,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 228430500,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 127376400,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 78544900,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 3,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 257503800,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 135753200,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 114742900,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 224057000,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 4,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 133989100,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 2,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 83660600,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 4,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 222977300,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "serial",
+          "workers": 1,
+          "correct": true
+        },
+        {
+          "elapsed_ns": 226152100,
+          "output_fingerprint": "8787d1e98fb9cadeeef78d0fbd23c7a6b96720e4853620f3776cf6d91c705464",
+          "case": "large_stereo",
+          "phase": "measured",
+          "repetition": 5,
+          "mode": "parallel",
+          "workers": 1,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "case": "tiny",
+      "mode": "serial",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 13.9253,
+      "min_ms": 12.670300000000001,
+      "max_ms": 15.4159,
+      "input_mib": 0.0989990234375,
+      "throughput_mib_s": 7.109291967677537,
+      "speedup_vs_serial": 1.0
+    },
+    {
+      "case": "tiny",
+      "mode": "parallel",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 13.1293,
+      "min_ms": 12.1046,
+      "max_ms": 16.4517,
+      "input_mib": 0.0989990234375,
+      "throughput_mib_s": 7.5403123881318885,
+      "speedup_vs_serial": 1.0606277562398605
+    },
+    {
+      "case": "tiny",
+      "mode": "parallel",
+      "workers": 2,
+      "repetitions": 5,
+      "median_ms": 12.024099999999999,
+      "min_ms": 11.0279,
+      "max_ms": 13.5043,
+      "input_mib": 0.0989990234375,
+      "throughput_mib_s": 8.23338324178109,
+      "speedup_vs_serial": 1.158115784133532
+    },
+    {
+      "case": "tiny",
+      "mode": "parallel",
+      "workers": 4,
+      "repetitions": 5,
+      "median_ms": 11.3174,
+      "min_ms": 10.344199999999999,
+      "max_ms": 13.7271,
+      "input_mib": 0.0989990234375,
+      "throughput_mib_s": 8.747505914565183,
+      "speedup_vs_serial": 1.2304327849152632
+    },
+    {
+      "case": "medium",
+      "mode": "serial",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 41.163900000000005,
+      "min_ms": 39.5323,
+      "max_ms": 45.5852,
+      "input_mib": 14.64910888671875,
+      "throughput_mib_s": 355.8727158194133,
+      "speedup_vs_serial": 1.0
+    },
+    {
+      "case": "medium",
+      "mode": "parallel",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 41.7211,
+      "min_ms": 40.1439,
+      "max_ms": 48.6496,
+      "input_mib": 14.64910888671875,
+      "throughput_mib_s": 351.11991023052485,
+      "speedup_vs_serial": 0.9866446474325942
+    },
+    {
+      "case": "medium",
+      "mode": "parallel",
+      "workers": 2,
+      "repetitions": 5,
+      "median_ms": 26.895,
+      "min_ms": 26.561,
+      "max_ms": 33.7994,
+      "input_mib": 14.64910888671875,
+      "throughput_mib_s": 544.6777797627348,
+      "speedup_vs_serial": 1.5305409927495819
+    },
+    {
+      "case": "medium",
+      "mode": "parallel",
+      "workers": 4,
+      "repetitions": 5,
+      "median_ms": 21.0671,
+      "min_ms": 20.5761,
+      "max_ms": 30.8124,
+      "input_mib": 14.64910888671875,
+      "throughput_mib_s": 695.3547895400293,
+      "speedup_vs_serial": 1.953942403083481
+    },
+    {
+      "case": "large_stereo",
+      "mode": "serial",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 229.1536,
+      "min_ms": 222.97729999999999,
+      "max_ms": 230.5635,
+      "input_mib": 87.89096069335938,
+      "throughput_mib_s": 383.54606121553127,
+      "speedup_vs_serial": 1.0
+    },
+    {
+      "case": "large_stereo",
+      "mode": "parallel",
+      "workers": 1,
+      "repetitions": 5,
+      "median_ms": 228.4305,
+      "min_ms": 226.1521,
+      "max_ms": 281.279,
+      "input_mib": 87.89096069335938,
+      "throughput_mib_s": 384.760181732997,
+      "speedup_vs_serial": 1.003165514237372
+    },
+    {
+      "case": "large_stereo",
+      "mode": "parallel",
+      "workers": 2,
+      "repetitions": 5,
+      "median_ms": 133.9891,
+      "min_ms": 126.4984,
+      "max_ms": 136.23350000000002,
+      "input_mib": 87.89096069335938,
+      "throughput_mib_s": 655.9560493604284,
+      "speedup_vs_serial": 1.710240609124175
+    },
+    {
+      "case": "large_stereo",
+      "mode": "parallel",
+      "workers": 4,
+      "repetitions": 5,
+      "median_ms": 83.6606,
+      "min_ms": 78.5449,
+      "max_ms": 114.74289999999999,
+      "input_mib": 87.89096069335938,
+      "throughput_mib_s": 1050.5657465205768,
+      "speedup_vs_serial": 2.739086260438008
+    }
+  ],
+  "completed_utc": "2026-10-15T09:50:43.137763+00:00"
+}
